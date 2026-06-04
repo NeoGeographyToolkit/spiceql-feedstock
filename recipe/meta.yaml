@@ -7,8 +7,9 @@ package:
 
 source:
   - folder: .
-    url: https://github.com/DOI-USGS/SpiceQL/archive/refs/tags/{{ version }}.tar.gz
-    sha256: dd5fb97cb05170b377aafb261bd66278808a04d6bf3fb50ca8244fb7c57b6a4e
+    # ASP: OUR fork branch no_spdlog @ f967aad (spdlog fully removed).
+    url: https://github.com/oleg-alexandrov/SpiceQL/archive/f967aad4289df0188967cfa9220e50eaef481f1c.tar.gz
+    sha256: 14b473cac9cdaeac3da711d0dccf8e314d1db05165d14bf1ed307a5db1508f46
 
   # submodules
   - folder: submodules/json
@@ -25,12 +26,13 @@ source:
 
 build:
   number: 0
+  string: asp_0      # ASP channel marker; bump to re-spin (append-only)
   skip: true  # [win]
 
 requirements:
   build:
     - {{ compiler('cxx') }}
-    - {{ stdlib("c") }}
+    # ASP: {{ stdlib("c") }} removed (bogus c_osx-arm64 in local conda-build)
     - python
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - make
@@ -38,22 +40,24 @@ requirements:
     - cmake-no-system >=3.14
 
   host:
-    - setuptools
+    # ASP: pin pip/setuptools down - bindings install uses $PYTHON(host) -m pip;
+    # bleeding-edge pip 26/setuptools 82 break legacy setup.py (see ALE).
+    - setuptools <80
     - cpp-filesystem
-    - pip
+    - pip <26
     - cereal
-    - highfive
-    - cspice
-    - hdf5
-    - fmt
-    - spdlog
+    - highfive >=3.2,<4
+    - cspice =67
+    - hdf5 >=1.14,<1.15
+    - fmt >=12.0,<12.1   # match isis_dev fmt 12.0.0 (its spdlog needs <12.1; 12.1 build -> run_export conflict)
+    # spdlog removed: our no_spdlog source does not use spdlog
     - openssl >=3.5,<4
     - python
     - libcurl >=8.14.1,<9
   run:
     - python
-    - cspice
-    - hdf5
+    - cspice =67
+    - hdf5 >=1.14,<1.15
 
 test:
   imports:
