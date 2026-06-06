@@ -1,6 +1,8 @@
 python:
   - "3.13"
 c_compiler_version:
-  - "18"
+  - "18"   # [osx]
+  - "13"   # [linux]
 cxx_compiler_version:
-  - "18"
+  - "18"   # [osx]
+  - "13"   # [linux]
