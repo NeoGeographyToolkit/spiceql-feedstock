@@ -1,8 +1,9 @@
 python:
   - "3.13"
+# Mac: clang 18. Linux: gcc 14 (match ASP build).
 c_compiler_version:
   - "18"   # [osx]
-  - "13"   # [linux]
+  - "14"   # [linux]
 cxx_compiler_version:
   - "18"   # [osx]
-  - "13"   # [linux]
+  - "14"   # [linux]

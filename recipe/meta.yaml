@@ -25,8 +25,8 @@ source:
 
 
 build:
-  number: 0
-  string: asp_0      # ASP channel marker; bump to re-spin (append-only)
+  number: 2
+  string: asp_2      # rebuild with gcc 14, =asp* pins
   skip: true  # [win]
 
 requirements:
