@@ -25,14 +25,14 @@ source:
 
 
 build:
-  number: 3
-  string: asp_3
+  number: 4
+  string: asp_4          # glibc floor fix (re-add stdlib pin)
   skip: true  # [win]
 
 requirements:
   build:
     - {{ compiler('cxx') }}
-    # ASP: {{ stdlib("c") }} removed (bogus c_osx-arm64 in local conda-build)
+    - {{ stdlib('c') }}
     - python
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - make
