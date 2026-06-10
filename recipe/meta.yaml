@@ -25,8 +25,8 @@ source:
 
 
 build:
-  number: 4
-  string: asp_4          # glibc floor fix (re-add stdlib pin)
+  number: 5
+  string: asp_5_{{ target_platform | replace("-", "_") }}          # glibc floor fix (re-add stdlib pin)
   skip: true  # [win]
 
 requirements:
